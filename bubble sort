@@ -2,24 +2,17 @@ def bubble_sort(arr):
     n = len(arr)
     
     for i in range(n):
-        
         for j in range(0, n - i - 1):
-            
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
 def display_top_salaries(sorted_salaries, n=5):
-    
     top_salaries = sorted_salaries[-n:]
-
-    
     top_salaries.reverse()
 
-    print(f"\n Top {n} Highest Employee Salaries:")
-
+    print(f"\nTop {n} Highest Employee Salaries:")
     for rank, salary in enumerate(top_salaries, 1):
-        
         print(f"#{rank}: ${salary:,.2f}")
 
 
@@ -32,13 +25,10 @@ employee_salaries = [
 print("Original Employee Salaries:")
 print(employee_salaries)
 
-
 sorted_salaries = bubble_sort(employee_salaries)
 
 print("\n---")
 print("Salaries Sorted in Ascending Order (using Bubble Sort):")
-
 print(sorted_salaries)
 
-
-display_top_salaries(sorted_salaries, n=5)
+display_top_salaries(sorted_salaries, n=5)
