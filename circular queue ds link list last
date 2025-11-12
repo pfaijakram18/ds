@@ -8,22 +8,20 @@ struct Node {
     Node* next;
 };
 
-
 class CircularQueue {
-    Node* rear; 
+    Node* rear;
 
 public:
     CircularQueue() {
         rear = nullptr;
     }
 
-    
     void addEvent(int id, string name) {
         Node* newNode = new Node{id, name, nullptr};
 
         if (rear == nullptr) {
             rear = newNode;
-            rear->next = rear; 
+            rear->next = rear;
         } else {
             newNode->next = rear->next;
             rear->next = newNode;
@@ -32,7 +30,6 @@ public:
         cout << "Event '" << name << "' added successfully.\n";
     }
 
-   
     void processNextEvent() {
         if (rear == nullptr) {
             cout << "No events to process!\n";
@@ -43,7 +40,7 @@ public:
         cout << "⚙ Processing event: " << front->name << " (ID: " << front->id << ")\n";
 
         if (rear == front) {
-            rear = nullptr; 
+            rear = nullptr;
         } else {
             rear->next = front->next;
         }
@@ -51,7 +48,6 @@ public:
         delete front;
     }
 
-  
     void displayEvents() {
         if (rear == nullptr) {
             cout << " No pending events.\n";
@@ -66,7 +62,6 @@ public:
         } while (temp != rear->next);
     }
 
-    
     void cancelEvent(int id) {
         if (rear == nullptr) {
             cout << "Queue is empty! No event to cancel.\n";
@@ -81,7 +76,7 @@ public:
                 found = true;
                 cout << "Cancelling event: " << curr->name << endl;
 
-                if (curr == rear && curr == rear->next) { 
+                if (curr == rear && curr == rear->next) {
                     rear = nullptr;
                 } else {
                     if (curr == rear)
@@ -101,7 +96,6 @@ public:
     }
 };
 
-
 int main() {
     CircularQueue cq;
     int choice, id;
@@ -112,13 +106,15 @@ int main() {
         cout << "1. Add Event\n2. Process Next Event\n3. Display Pending Events\n4. Cancel Event\n0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore(); // flush newline from input buffer
 
         switch (choice) {
         case 1:
             cout << "Enter Event ID: ";
             cin >> id;
+            cin.ignore(); // flush newline
             cout << "Enter Event Name: ";
-            cin >> name;
+            getline(cin, name);
             cq.addEvent(id, name);
             break;
 
@@ -145,5 +141,5 @@ int main() {
         }
     } while (choice != 0);
 
-    return 0;
+    return 0;
 }
