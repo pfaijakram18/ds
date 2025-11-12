@@ -1,0 +1,28 @@
+# Simple Binary Search Program
+
+# Customer IDs (must be sorted)
+customer_ids = [101, 104, 108, 115, 120, 125, 130]
+
+# Take input
+target = int(input("Enter customer ID to search: "))
+
+# Binary search logic
+low = 0
+high = len(customer_ids) - 1
+found = False
+
+while low <= high:
+    mid = (low + high) // 2
+    if customer_ids[mid] == target:
+        found = True
+        break
+    elif customer_ids[mid] < target:
+        low = mid + 1
+    else:
+        high = mid - 1
+
+# Output
+if found:
+    print("Customer ID found!")
+else:
+    print("Customer ID not found!")
