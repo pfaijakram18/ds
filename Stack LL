@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Node structure to represent each function call
+struct Node {
+    string functionName;
+    Node* next;
+};
+
+// Stack class implemented using Linked List
+class FunctionCallStack {
+    Node* top;
+
+public:
+    FunctionCallStack() {
+        top = nullptr;
+    }
+
+    // Push operation — when a function is called
+    void push(string fname) {
+        Node* newNode = new Node();
+        newNode->functionName = fname;
+        newNode->next = top;
+        top = newNode;
+        cout << "Function '" << fname << "' is called and pushed onto the stack.\n";
+    }
+
+    // Pop operation — when a function returns
+    void pop() {
+        if (top == nullptr) {
+            cout << "No function to return from (Stack is empty)!\n";
+            return;
+        }
+        cout << "Function '" << top->functionName << "' has returned and popped from the stack.\n";
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    // Display current stack (simulating function call sequence)
+    void display() {
+        if (top == nullptr) {
+            cout << "No active functions in the stack.\n";
+            return;
+        }
+        cout << "\nCurrent Function Call Stack (Top → Bottom):\n";
+        Node* temp = top;
+        while (temp != nullptr) {
+            cout << "-> " << temp->functionName << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+// Main function for demonstration
+int main() {
+    FunctionCallStack stack;
+    int choice;
+    string fname;
+
+    do {
+        cout << "\n====== Function Call Stack Menu ======\n";
+        cout << "1. Call a Function (Push)\n";
+        cout << "2. Return from Function (Pop)\n";
+        cout << "3. Display Current Stack\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter Function Name to Call: ";
+                cin >> fname;
+                stack.push(fname);
+                break;
+            case 2:
+                stack.pop();
+                break;
+            case 3:
+                stack.display();
+                break;
+            case 4:
+                cout << "Exiting Program...\n";
+                break;
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
