@@ -1,0 +1,149 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    int id;
+    string name;
+    Node* next;
+};
+
+
+class CircularQueue {
+    Node* rear; 
+
+public:
+    CircularQueue() {
+        rear = nullptr;
+    }
+
+    
+    void addEvent(int id, string name) {
+        Node* newNode = new Node{id, name, nullptr};
+
+        if (rear == nullptr) {
+            rear = newNode;
+            rear->next = rear; 
+        } else {
+            newNode->next = rear->next;
+            rear->next = newNode;
+            rear = newNode;
+        }
+        cout << "Event '" << name << "' added successfully.\n";
+    }
+
+   
+    void processNextEvent() {
+        if (rear == nullptr) {
+            cout << "No events to process!\n";
+            return;
+        }
+
+        Node* front = rear->next;
+        cout << "⚙ Processing event: " << front->name << " (ID: " << front->id << ")\n";
+
+        if (rear == front) {
+            rear = nullptr; 
+        } else {
+            rear->next = front->next;
+        }
+
+        delete front;
+    }
+
+  
+    void displayEvents() {
+        if (rear == nullptr) {
+            cout << " No pending events.\n";
+            return;
+        }
+
+        cout << "\n Pending Events:\n";
+        Node* temp = rear->next;
+        do {
+            cout << "→ ID: " << temp->id << ", Name: " << temp->name << endl;
+            temp = temp->next;
+        } while (temp != rear->next);
+    }
+
+    
+    void cancelEvent(int id) {
+        if (rear == nullptr) {
+            cout << "Queue is empty! No event to cancel.\n";
+            return;
+        }
+
+        Node *curr = rear->next, *prev = rear;
+        bool found = false;
+
+        do {
+            if (curr->id == id) {
+                found = true;
+                cout << "Cancelling event: " << curr->name << endl;
+
+                if (curr == rear && curr == rear->next) { 
+                    rear = nullptr;
+                } else {
+                    if (curr == rear)
+                        rear = prev;
+                    prev->next = curr->next;
+                }
+
+                delete curr;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+        } while (curr != rear->next);
+
+        if (!found)
+            cout << " Event ID " << id << " not found in queue.\n";
+    }
+};
+
+
+int main() {
+    CircularQueue cq;
+    int choice, id;
+    string name;
+
+    do {
+        cout << "\n===== REAL-TIME EVENT PROCESSING SYSTEM =====\n";
+        cout << "1. Add Event\n2. Process Next Event\n3. Display Pending Events\n4. Cancel Event\n0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter Event ID: ";
+            cin >> id;
+            cout << "Enter Event Name: ";
+            cin >> name;
+            cq.addEvent(id, name);
+            break;
+
+        case 2:
+            cq.processNextEvent();
+            break;
+
+        case 3:
+            cq.displayEvents();
+            break;
+
+        case 4:
+            cout << "Enter Event ID to cancel: ";
+            cin >> id;
+            cq.cancelEvent(id);
+            break;
+
+        case 0:
+            cout << "Exiting system...\n";
+            break;
+
+        default:
+            cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
