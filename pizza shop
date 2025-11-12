@@ -13,7 +13,6 @@ public:
         adj.resize(v);
     }
 
-    
     void addEdge(int src, int dest) {
         adj[src].push_back(dest);
         adj[dest].push_back(src);
@@ -26,7 +25,7 @@ public:
         distance[start] = 0;
         q.push(start);
 
-        cout << "\n Starting pizza delivery from Location " << start << endl;
+        cout << "\nStarting pizza delivery from Location " << start << endl;
 
         while (!q.empty()) {
             int curr = q.front();
@@ -43,10 +42,9 @@ public:
             }
         }
 
-        cout << "\n All reachable locations have been delivered!\n";
+        cout << "\nAll reachable locations have been delivered!\n";
     }
 
-  
     void displayGraph() {
         cout << "\n--- Graph Connections ---\n";
         for (int i = 0; i < vertices; i++) {
@@ -58,7 +56,6 @@ public:
         }
     }
 };
-
 
 int main() {
     int V, E;
@@ -84,5 +81,5 @@ int main() {
     g.displayGraph();
     g.pizzaDelivery(start);
 
-    return 0;
+    return 0;  // fixed: removed invisible characters
 }
