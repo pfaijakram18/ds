@@ -2,13 +2,11 @@
 #include <string>
 using namespace std;
 
-
 struct Node {
-    int id;            
-    string name;       
+    int id;
+    string name;
     Node* next;
 };
-
 
 class Queue {
     Node* front;
@@ -19,7 +17,6 @@ public:
         front = rear = nullptr;
     }
 
-  
     void enqueue(int id, string name) {
         Node* newNode = new Node;
         newNode->id = id;
@@ -36,7 +33,6 @@ public:
         cout << "Customer " << name << " joined the queue.\n";
     }
 
-    
     void dequeue() {
         if (front == nullptr) {
             cout << "⚠ Queue is empty! No customer to serve.\n";
@@ -53,7 +49,6 @@ public:
         delete temp;
     }
 
-   
     void display() {
         if (front == nullptr) {
             cout << " No customers waiting in the queue.\n";
@@ -82,13 +77,15 @@ int main() {
         cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore(); // Clear the newline left in the buffer
 
         switch (choice) {
         case 1:
             cout << "Enter Customer ID: ";
             cin >> id;
+            cin.ignore(); // Clear newline before getline
             cout << "Enter Customer Name: ";
-            cin >> name;
+            getline(cin, name);
             q.enqueue(id, name);
             break;
 
@@ -109,5 +106,5 @@ int main() {
         }
     } while (choice != 0);
 
-    return 0;
+    return 0;
 }
