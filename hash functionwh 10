@@ -78,13 +78,15 @@ int main() {
         cout << "4. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore(); // clear newline from input buffer
 
         switch (choice) {
             case 1:
                 cout << "Enter key (integer): ";
                 cin >> key;
+                cin.ignore(); // clear newline before getline
                 cout << "Enter value (string): ";
-                cin >> value;
+                getline(cin, value);
                 ht.insert(key, value);
                 break;
 
@@ -108,5 +110,5 @@ int main() {
 
     } while (choice != 4);
 
-    return 0;
+    return 0;
 }
