@@ -16,7 +16,6 @@ private:
 public:
     StudentList() { head = nullptr; }
 
-    
     void addStudent(int rollNo, string name, float marks) {
         Student* newStudent = new Student{rollNo, name, marks, nullptr};
         if (!head) {
@@ -30,7 +29,6 @@ public:
         cout << "Record added successfully!\n";
     }
 
-    
     void display() {
         if (!head) {
             cout << "No records to display.\n";
@@ -45,7 +43,6 @@ public:
         }
     }
 
-    
     void deleteStudent(int rollNo) {
         if (!head) {
             cout << "List is empty.\n";
@@ -71,7 +68,6 @@ public:
         cout << "Record deleted successfully!\n";
     }
 
-    
     void updateStudent(int rollNo) {
         Student* temp = head;
         while (temp && temp->rollNo != rollNo)
@@ -87,7 +83,6 @@ public:
         cout << "Record updated successfully!\n";
     }
 
-    
     void sortRecords(bool byMarks = false, bool ascending = true) {
         if (!head || !head->next)
             return;
@@ -156,5 +151,5 @@ int main() {
         }
     } while (choice != 0);
 
-    return 0;
+    return 0;
 }
